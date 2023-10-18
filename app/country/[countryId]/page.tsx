@@ -6,10 +6,8 @@ import {
 } from "@/components/ui/card"
 import Link from 'next/link';
 import Image from 'next/image';
-import { getBanks } from '@/lib/api';
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getSession, getBanks } from '@/app/supabase-server';
 
 type Params = {
   params: {
@@ -18,7 +16,7 @@ type Params = {
 }
 
 export default async function Country({ params: { countryId } }: Params) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   let fetchedBanks = await getBanks();
   const banksFetched = await Promise.all(fetchedBanks);
   let banks = banksFetched.filter(dt => dt.countryId === countryId);

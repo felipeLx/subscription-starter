@@ -7,10 +7,8 @@ import {
 } from "@/components/ui/card"
 import Link from 'next/link';
 import Image from 'next/image';
-import { getMethods } from '@/lib/api';
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getSession, getMethods } from '@/app/supabase-server';
 
 type Params = {
   params: {
@@ -18,7 +16,7 @@ type Params = {
   }
 }
 export default async function Bank({ params: { bankId } }: Params) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   let fetchedMethods = await getMethods();
   const methodsFetched = await Promise.all(fetchedMethods);
   let methods = methodsFetched.filter(dt => dt.bankId === bankId);

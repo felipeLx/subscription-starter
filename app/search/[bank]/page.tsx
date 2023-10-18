@@ -1,6 +1,4 @@
 import { Bank } from '@prisma/client';
-import { useRouter, useSearchParams } from 'next/navigation';
-import useSWR from 'swr';
 import {
     Card,
     CardContent,
@@ -9,11 +7,9 @@ import {
 } from "@/components/ui/card"
 import Link from 'next/link';
 import Image from 'next/image';
-import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { getBankById } from '@/lib/api';
-import { getServerSession } from "next-auth";
-  
+import { getSession, getBankById } from '@/app/supabase-server';
+
 type Params = {
     params: {
         bank: string
@@ -21,11 +17,12 @@ type Params = {
   }
 
 const SearchPage = async({ params: { bank } }: Params) => {
-    const session = await getServerSession(authOptions);
+    const user = getSession();
+    
     let bankName = bank;
     const {data }: any = await getBankById(bankName);
     
-    if (!session) {
+    if (!user) {
         return redirect('/sign-in');
     }
 
