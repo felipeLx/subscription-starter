@@ -8,7 +8,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
 import SearchBar from '@/app/search-bar';
-import UserLogout from "../ui/UserLogout";
+import SignOutButton from "../ui/Navbar/SignOutButton";
 import Button from '../ui/Button';
 
 const DropDownMenuForm = () => {
@@ -25,7 +25,7 @@ const DropDownMenuForm = () => {
                         <Button variant='slim' className=' justify-center w-full'>Limits</Button>
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem><UserLogout /></DropdownMenuItem>
+                <DropdownMenuItem><SignOutButton /></DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
 
