@@ -12,8 +12,7 @@ type Params = {
 export default async function Method({ params: { methodId } }: Params) {
   const session = await getSession();
   let fetchedPmt = await getSteps();
-  const pmtFetched = await Promise.all(fetchedPmt);
-  let steps = pmtFetched.filter(dt => dt.paymentId === methodId);
+  let steps = fetchedPmt?.filter(dt => dt.payment_id === methodId);
 
   if (!session) {
     return redirect('/sign-in');
@@ -21,7 +20,7 @@ export default async function Method({ params: { methodId } }: Params) {
 
   return (
     <div className="flex flex-wrap w-full justify-center items-start">
-      {steps.map((ct, index) => (
+      {steps && steps.map((ct, index) => (
           <div key={index} className="mt-2">
             {ct.st1_pic && <div>
               <div className="px-2 flex flex-row text-lg w-full">

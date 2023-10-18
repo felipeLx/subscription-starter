@@ -17,9 +17,8 @@ export default async function Limits() {
         return redirect('/sign-in');
     }
     
-    let limits = await getLimits();
-    let data = limits?.flat(Infinity);
-
+    let data: any = await getLimits();
+    
     return(
         <>
             <Table>
@@ -33,7 +32,7 @@ export default async function Limits() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.map((ct: any) =>
+                    {data && data.map((ct: any) =>
                         ct.banks.map((bk: any) => 
                             bk.payment.map((py: any) =>
                             <TableRow key={bk.payment.id}>

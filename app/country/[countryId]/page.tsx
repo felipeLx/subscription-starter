@@ -18,8 +18,7 @@ type Params = {
 export default async function Country({ params: { countryId } }: Params) {
   const session = await getSession();
   let fetchedBanks = await getBanks();
-  const banksFetched = await Promise.all(fetchedBanks);
-  let banks = banksFetched.filter(dt => dt.countryId === countryId);
+  let banks = fetchedBanks?.filter(dt => dt.country_id === countryId);
 
   if (!session) {
     return redirect('/sign-in');
@@ -27,7 +26,7 @@ export default async function Country({ params: { countryId } }: Params) {
     
   return (
       <div className="flex w-full flex-wrap justify-around items-start">
-        {banks.map((ct, index) => 
+        {banks && banks.map((ct, index) => 
         <Link key={index} href={`/bank/${ct.id}`} className=''>
         <Card className='flex flex-col bg-[#126E82] m-4 p-4 text-center w-64 h-80 text-white'>
             <CardHeader>

@@ -18,8 +18,7 @@ type Params = {
 export default async function Bank({ params: { bankId } }: Params) {
   const session = await getSession();
   let fetchedMethods = await getMethods();
-  const methodsFetched = await Promise.all(fetchedMethods);
-  let methods = methodsFetched.filter(dt => dt.bankId === bankId);
+  let methods = fetchedMethods?.filter(dt => dt.bank_id === bankId);
   
   if (!session) {
     return redirect('/sign-in');
@@ -27,7 +26,7 @@ export default async function Bank({ params: { bankId } }: Params) {
 
   return (
     <div className="flex w-full flex-wrap justify-around items-start">
-      {methods.map((ct, index) => 
+      {methods && methods.map((ct, index) => 
       <Link key={index} href={`/method/${ct.id}`}>
       <Card className='flex flex-wrap bg-[#126E82] m-4 p-4 text-center w-96 text-white justify-center'>
           <CardHeader>
