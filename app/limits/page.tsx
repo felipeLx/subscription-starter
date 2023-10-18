@@ -17,8 +17,8 @@ export default async function Limits() {
         return redirect('/sign-in');
     }
     
-    let {limits }= await getLimits();
-    let data = limits.flat(Infinity);
+    let limits = await getLimits();
+    let data = limits?.flat(Infinity);
 
     return(
         <>

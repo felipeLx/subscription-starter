@@ -1,4 +1,3 @@
-import { Bank } from '@prisma/client';
 import {
     Card,
     CardContent,

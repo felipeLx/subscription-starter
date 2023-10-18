@@ -9,7 +9,7 @@ import {
   } from "@/components/ui/dropdown-menu";
 import SearchBar from '@/app/search-bar';
 import UserLogout from "../ui/UserLogout";
-import { Button } from '../ui/button';
+import Button from '../ui/Button';
 
 const DropDownMenuForm = () => {
 
@@ -22,7 +22,7 @@ const DropDownMenuForm = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                     <Link href='/limits' className='flex w-full' aria-label='Limits'>
-                        <Button variant='outline' className=' justify-center w-full'>Limits</Button>
+                        <Button variant='slim' className=' justify-center w-full'>Limits</Button>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem><UserLogout /></DropdownMenuItem>
