@@ -109,16 +109,18 @@ export const getBankById = async(name: string) => {
   if(typeof name !== 'string') return
 
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('banks')
-    .select('*')
-    .eq('name', name)
-    .order('name')
-
-  if (error) {
-    console.log(error.message);
+  try {
+    const { data: bank } = await supabase
+      .from('banks')
+      .select('*')
+      .eq('name', name)
+      .order('name')
+      .maybeSingle()
+    return bank ?? [];
+  } catch (error) {
+    console.log(error);
+    return null
   }
-  return data ?? [];
 };
 /*
 export const fetchDataByQuery = async(query: string) => {
@@ -164,71 +166,86 @@ export const fetchDataByQuery = async(query: string) => {
 */
 export const getCountries = async() => {
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('countries')
-    .select('*');
-
-  if (error) {
-    console.log(error.message);
+  try {
+    const { data, error } = await supabase
+      .from('countries')
+      .select('*');
+  
+    if (error) {
+      console.log(error.message);
+    }
+    return data ?? [];
+  } catch (error) {
+    console.log(error);
+    return null
   }
-  return data ?? [];
   
 };
 
 export const getBanks = async() => {
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('banks')
-    .select('*');
-
-  if (error) {
-    console.log(error.message);
-  }
-  return data ?? [];
-};
-/*
-export const getLimits = async() => {
-  const limits: any = await prisma.country.findMany({
-    select: {
-      country: true,
-      banks: {
-        select: {
-          name: true,
-          payment: {
-            select: {
-              id: true,
-              type: true,
-              limits: true,
-              information: true
-            }
-          }
-        },
-      },
+  try {
+    const { data, error } = await supabase
+      .from('banks')
+      .select('*');
+  
+    if (error) {
+      console.log(error.message);
     }
-  })
-  return { limits }
+    return data ?? [];
+  } catch (error) {
+    console.log(error);
+    return null
+  }
+};
+
+export const getLimits = async() => {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: limits } = await supabase
+      .from('payments')
+      .select('*, banks(*)')
+      .in('bankId', ['id'])
+      .maybeSingle()
+      .throwOnError();
+    return limits;
+  } catch (error) {
+    console.log(error);
+    return null
+  }
 }
-*/
+
 export const getMethods = async() => {
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('payments')
-    .select('*')
-  if (error) {
-    console.log(error.message);
+  try {
+    const { data, error } = await supabase
+      .from('payments')
+      .select('*')
+    if (error) {
+      console.log(error.message);
+    }
+    return data ?? [];
+  } catch (error) {
+    console.log(error);
+    return null
   }
-  return data ?? [];
   
 };
 
 export const getSteps = async() => {
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('steps')
-    .select('*');
+  try {
+    const { data, error } = await supabase
+      .from('steps')
+      .select('*');
+  
+    if (error) {
+      console.log(error.message);
+    }
+    return data ?? [];
 
-  if (error) {
-    console.log(error.message);
+  } catch (error) {
+    console.log(error);
+    return null
   }
-  return data ?? [];
 };
