@@ -41,11 +41,11 @@ export default async function Account() {
     const supabase = createServerActionClient<Database>({ cookies });
     const session = await getSession();
     console.log('session ', session)
-    const user = session?.user;
+    const user: any = session?.user;
     const { error } = await supabase
       .from('users')
       .update({ full_name: newName })
-      .eq('id', user?.id);
+      .eq('id', user.id);
     if (error) {
       console.log(error);
     }
