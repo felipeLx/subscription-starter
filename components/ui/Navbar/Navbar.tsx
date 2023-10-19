@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { createServerSupabaseClient } from '@/app/supabase-server';
-
+import Image from 'next/image';
 import Logo from '@/components/icons/Logo';
-import SignOutButton from './SignOutButton';
+// import SignOutButton from './SignOutButton';
 
 import s from './Navbar.module.css';
 import DropDownMenuForm from '@/components/form/DropDownMenuForm';
@@ -22,7 +22,13 @@ export default async function Navbar() {
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
           <div className="flex items-center flex-1">
             <Link href="/" className={s.logo} aria-label="Logo">
-              <Logo />
+            <Image 
+              src='/logo.png' 
+              alt='Latam Payments' 
+              width={200} height={100} 
+              className='rounded bg-inherit w-auto h-auto' security='https' 
+              placeholder="blur"
+              blurDataURL='/logo.png' />
             </Link>
             </div>
           <div className="flex justify-end flex-1 space-x-8">
