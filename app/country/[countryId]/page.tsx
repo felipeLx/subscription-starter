@@ -7,7 +7,10 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
-import { getSession, getBanks } from '@/app/supabase-server';
+import { getBanks, getUserDetails } from '@/app/supabase-server';
+import { cookies } from 'next/headers';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/types_db';
 
 type Params = {
   params: {
@@ -16,11 +19,11 @@ type Params = {
 }
 
 export default async function Country({ params: { countryId } }: Params) {
-  const session = await getSession();
+  const user = getUserDetails();
   let fetchedBanks = await getBanks();
   let banks = fetchedBanks?.filter(dt => dt.country_id === countryId);
 
-  if (!session) {
+  if (!user) {
     return redirect('/sign-in');
   }
     

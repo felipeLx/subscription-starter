@@ -7,7 +7,10 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
-import { getSession, getBankById } from '@/app/supabase-server';
+import { getBankById, getUserDetails } from '@/app/supabase-server';
+import { cookies } from 'next/headers';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/types_db';
 
 type Params = {
     params: {
@@ -16,7 +19,7 @@ type Params = {
   }
 
 const SearchPage = async({ params: { bank } }: Params) => {
-    const user = getSession();
+    const user = getUserDetails();
     
     let bankName = bank;
     const {data }: any = await getBankById(bankName);

@@ -1,7 +1,10 @@
 
 import Image from 'next/image';
-import { getSession, getSteps } from '@/app/supabase-server';
+import { getUserDetails, getSteps } from '@/app/supabase-server';
 import { redirect } from "next/navigation";
+import { cookies } from 'next/headers';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/types_db';
 
 type Params = {
   params: {
@@ -10,11 +13,11 @@ type Params = {
 }
 
 export default async function Method({ params: { methodId } }: Params) {
-  const session = await getSession();
+  const user = getUserDetails();
   let fetchedPmt = await getSteps();
   let steps = fetchedPmt?.filter(dt => dt.payment_id === methodId);
 
-  if (!session) {
+  if (!user) {
     return redirect('/sign-in');
   }
 
