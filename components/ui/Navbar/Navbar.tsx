@@ -5,6 +5,7 @@ import Logo from '@/components/icons/Logo';
 import SignOutButton from './SignOutButton';
 
 import s from './Navbar.module.css';
+import DropDownMenuForm from '@/components/form/DropDownMenuForm';
 
 export default async function Navbar() {
   const supabase = createServerSupabaseClient();
@@ -23,28 +24,34 @@ export default async function Navbar() {
             <Link href="/" className={s.logo} aria-label="Logo">
               <Logo />
             </Link>
-            <nav className="hidden ml-6 space-x-2 lg:block">
-              <Link href="/dashboard" className={s.link}>
-                Dashboard
-              </Link>
-              {user && (
-                <Link href="/account" className={s.link}>
-                  Account
-                </Link>
-              )}
-            </nav>
-          </div>
+            </div>
           <div className="flex justify-end flex-1 space-x-8">
-            {user ? (
-              <SignOutButton />
-            ) : (
-              <Link href="/signin" className={s.link}>
-                Sign in
-              </Link>
-            )}
+            <DropDownMenuForm />
           </div>
         </div>
       </div>
     </nav>
   );
 }
+/*
+<nav className="hidden ml-6 space-x-2 lg:block">
+    <Link href="/dashboard" className={s.link}>
+      Dashboard
+    </Link>
+    {user && (
+      <Link href="/account" className={s.link}>
+        Account
+      </Link>
+    )}
+  </nav>
+
+  {user ? (
+        <SignOutButton />
+      ) : (
+        <Link href="/signin" className={s.link}>
+          Sign in
+        </Link>
+      )}
+
+
+  */

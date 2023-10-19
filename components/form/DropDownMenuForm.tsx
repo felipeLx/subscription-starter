@@ -10,25 +10,41 @@ import {
 import SearchBar from '@/app/search-bar';
 import SignOutButton from "../ui/Navbar/SignOutButton";
 import Button from '../ui/Button';
+import { createServerSupabaseClient } from '@/app/supabase-server';
+import s from './Navbar.module.css';
 
-const DropDownMenuForm = () => {
-
+const DropDownMenuForm = async() => {
+    const supabase = createServerSupabaseClient();
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
     return(
         <DropdownMenu>
-            <DropdownMenuTrigger className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'  aria-label='Menu'>Options</DropdownMenuTrigger>
+            <DropdownMenuTrigger className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' aria-label='Menu'>Options</DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuLabel aria-label='Search'>Search:</DropdownMenuLabel>
-                <SearchBar />
-                <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <Link href='/limits' className='flex w-full' aria-label='Limits'>
-                        <Button variant='slim' className=' justify-center w-full'>Limits</Button>
+                    <Link href='/dashboard' className={s.link} aria-label='Limits'>Dashboard
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem><SignOutButton /></DropdownMenuItem>
+                <DropdownMenuLabel aria-label='Search'>Search:</DropdownMenuLabel>
+                    <SearchBar />
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                    <Link href='/limits' className={s.link} aria-label='Limits'>
+                        Limits
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                {user ? (
+                <SignOutButton />
+                ) : (
+                <Link href="/signin" className={s.link}>
+                    Sign in
+                </Link>
+                )}
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-
     )
 }
 
