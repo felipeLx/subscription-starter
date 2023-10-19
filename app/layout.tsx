@@ -5,8 +5,8 @@ import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
 const meta = {
-  title: 'Next.js Subscription Starter',
-  description: 'Brought to you by Vercel, Stripe, and Supabase.',
+  title: 'Latam Payments',
+  description: 'How to do payments with any bank on LATAM',
   cardImage: '/og.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
@@ -29,13 +29,6 @@ export const metadata = {
     cardImage: meta.cardImage,
     type: meta.type,
     site_name: meta.title
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@vercel',
-    title: meta.title,
-    description: meta.description,
-    cardImage: meta.cardImage
   }
 };
 
