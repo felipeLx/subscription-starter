@@ -5,7 +5,7 @@ import Logo from '@/components/icons/Logo';
 // import SignOutButton from './SignOutButton';
 
 import s from './Navbar.module.css';
-import DropDownMenuForm from '@/components/form/DropDownMenuForm';
+import DropDownMenuForm from './DropDownMenuForm';
 
 export default async function Navbar() {
   const supabase = createServerSupabaseClient();

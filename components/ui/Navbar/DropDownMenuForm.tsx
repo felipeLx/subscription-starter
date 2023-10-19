@@ -8,8 +8,8 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
 import SearchBar from '@/app/search-bar';
-import SignOutButton from "../ui/Navbar/SignOutButton";
-import Button from '../ui/Button';
+import SignOutButton from "./SignOutButton";
+import Button from '../Button';
 import { createServerSupabaseClient } from '@/app/supabase-server';
 import s from './Navbar.module.css';
 
