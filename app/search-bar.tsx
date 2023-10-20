@@ -8,6 +8,7 @@ import { FormItem } from '@/components/ui/form';
 export const dynamic = 'force-dynamic'
 export default function SearchBar() {
     const search = useSearchParams();
+    
     const [searchQuery, setSearchQuery] = useState<string | null>(
         search ? search.get("q") : ""
     );
