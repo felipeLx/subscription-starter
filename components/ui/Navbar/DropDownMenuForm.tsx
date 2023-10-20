@@ -21,7 +21,7 @@ const DropDownMenuForm = async() => {
     return(
         <DropdownMenu>
             <DropdownMenuTrigger  className={s.link} aria-label='Menu'>Options</DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className='bg-[#126E82]'>
                 <DropdownMenuItem>
                     <Link href='/dashboard' className={s.link} aria-label='Limits'>Dashboard
                     </Link>

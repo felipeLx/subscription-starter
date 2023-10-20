@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import Image from 'next/image';
 import Logo from '@/components/icons/Logo';
 import GitHub from '@/components/icons/GitHub';
 
@@ -13,7 +13,13 @@ export default function Footer() {
             className="flex items-center flex-initial font-bold md:mr-24"
           >
             <span className="mr-2 border rounded-full border-zinc-700">
-              <Logo />
+            <Image 
+              src='/logo.png' 
+              alt='Latam Payments' 
+              width={50} height={50} 
+              className='rounded bg-inherit w-auto h-auto' security='https' 
+              placeholder="blur"
+              blurDataURL='/logo.png' />
             </span>
             <span>LATAM PAYMENTS</span>
           </Link>
@@ -30,26 +36,18 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/dashboard"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
-                About
+                Dashboard
               </Link>
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/limits"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
-                Careers
-              </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Blog
+                Limits
               </Link>
             </li>
           </ul>
@@ -63,7 +61,7 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/privacy-policy"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 Privacy Policy
@@ -71,7 +69,7 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/terms-of-use"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 Terms of Use
