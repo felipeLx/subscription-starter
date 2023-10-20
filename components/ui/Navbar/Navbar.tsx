@@ -19,8 +19,8 @@ export default async function Navbar() {
         Skip to content
       </a>
       <div className="max-w-6xl px-6 mx-auto">
-        <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
-          <div className="flex items-center flex-1">
+        <div className="relative flex flex-row justify-between py-1 align-center md:py-1">
+          <div className="flex items-center">
             <Link href="/" className={s.logo} aria-label="Logo">
             <Image 
               src='/logo.png' 
@@ -31,7 +31,7 @@ export default async function Navbar() {
               blurDataURL='/logo.png' />
             </Link>
             </div>
-          <div className="flex justify-end flex-1 space-x-8">
+          <div className="flex justify-end space-x-8">
             <DropDownMenuForm />
           </div>
         </div>

@@ -55,7 +55,7 @@ export default function Pricing({
       return router.push('/signin');
     }
     if (subscription) {
-      return router.push('/account');
+      return router.push('/dashboard');
     }
     try {
       const { sessionId } = await postData({
@@ -71,10 +71,10 @@ export default function Pricing({
       setPriceIdLoading(undefined);
     }
   };
-
+/*
   if (!products.length)
     return (
-      <section className="bg-black">
+      <section className="flex items-center justify-center bg-black">
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center"></div>
           <p className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -160,7 +160,7 @@ export default function Pricing({
         </div>
       </section>
     );
-
+*/
   return (
     <section className="bg-black">
       <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
@@ -169,8 +169,7 @@ export default function Pricing({
             Pricing Plans
           </h1>
           <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-            Start building for free, then add a site plan to go live. Account
-            plans unlock additional features.
+            Access for the full details about the banks in LATAM.
           </p>
           <div className="relative self-center mt-6 bg-zinc-900 rounded-lg p-0.5 flex sm:mt-8 border border-zinc-800">
             {intervals.includes('month') && (
@@ -201,7 +200,7 @@ export default function Pricing({
             )}
           </div>
         </div>
-        <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl justify-center lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
+        <div className="mt-12 text-center space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl justify-center lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
           {products.map((product) => {
             const price = product?.prices?.find(
               (price) => price.interval === billingInterval
@@ -252,12 +251,13 @@ export default function Pricing({
             );
           })}
         </div>
-        <LogoCloud />
       </div>
     </section>
   );
 }
 
+/*
+<LogoCloud />
 function LogoCloud() {
   return (
     <div>
@@ -314,3 +314,4 @@ function LogoCloud() {
     </div>
   );
 }
+*/
