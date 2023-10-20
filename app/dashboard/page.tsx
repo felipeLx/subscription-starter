@@ -6,9 +6,17 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Image from 'next/image';
-import { getCountries } from '@/app/supabase-server';
+import { createServerSupabaseClient, getCountries, getSubscriptionById } from '@/app/supabase-server';
+import { redirect } from 'next/navigation';
 
 export default async function Dashboard() {
+  const supabase = createServerSupabaseClient();
+  const {
+      data: { user }
+  } = await supabase.auth.getUser();
+  const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+  if(!subscribed) return redirect('/account');
+
   let countries = await getCountries();
 
   return (

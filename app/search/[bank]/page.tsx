@@ -7,7 +7,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
-import { getBankById, getUserDetails } from '@/app/supabase-server';
+import { createServerSupabaseClient, getBankById, getSubscriptionById, getUserDetails } from '@/app/supabase-server';
 import { getSubscription } from '@/app/supabase-server';
 import { Database } from "@/types_db";
 
@@ -28,14 +28,16 @@ interface Banks {
 };
 
 const SearchPage = async({ params: { bank } }: Params) => {
-    const user = getUserDetails();
-    const [subscription] = await Promise.all([
-        getSubscription()
-      ]);
+    const supabase = createServerSupabaseClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+    const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+    if(!subscribed) return redirect('/account');
+
     let bankName = bank;
     const data: Banks[] |null | undefined = await getBankById(bankName);
     
-    if(!subscription) return redirect('/account');
     if (!user) {
         return redirect('/sign-in');
     }

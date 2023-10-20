@@ -1,6 +1,6 @@
 
 import Image from 'next/image';
-import { getUserDetails, getSteps } from '@/app/supabase-server';
+import { getUserDetails, getSteps, createServerSupabaseClient, getSubscriptionById } from '@/app/supabase-server';
 import { redirect } from "next/navigation";
 import { getSubscription } from '@/app/supabase-server';
 
@@ -11,15 +11,16 @@ type Params = {
 }
 
 export default async function Method({ params: { methodId } }: Params) {
-  const user = await getUserDetails();
-  const [subscription] = await Promise.all([
-    getSubscription()
-  ]);
+  const supabase = createServerSupabaseClient();
+  const {
+      data: { user }
+  } = await supabase.auth.getUser();
+  const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+  if(!subscribed) return redirect('/account');
+
   let fetchedPmt = await getSteps();
   let steps = fetchedPmt?.filter(dt => dt.payment_id === methodId);
 
-  
-  if(!subscription) return redirect('/account');
   if (!user) {
     return redirect('/sign-in');
   }

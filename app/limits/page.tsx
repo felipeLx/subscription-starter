@@ -7,7 +7,7 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { getSubscription } from '@/app/supabase-server';
+import { createServerSupabaseClient, getSubscription, getSubscriptionById } from '@/app/supabase-server';
 import { getLimits, getUserDetails } from "@/app/supabase-server";
 
 interface Limits {
@@ -30,12 +30,13 @@ interface Limits {
 };
 
 export default async function Limits() {
-    const [subscription] = await Promise.all([
-        getSubscription()
-      ]);
-    const user = await getUserDetails();
-    
-    if(!subscription) return redirect('/account');
+    const supabase = createServerSupabaseClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+    const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+    if(!subscribed) return redirect('/account');
+
     if(!user) {
         return redirect('/sign-in');
     }
