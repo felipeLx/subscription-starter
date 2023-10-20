@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { createServerSupabaseClient } from '@/app/supabase-server';
 import s from './Navbar.module.css';
 import DropDownMenuForm from './DropDownMenuForm';
 
 export default async function Navbar() {
-
+  const supabase = createServerSupabaseClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+  
   return (
     <nav className={s.root}>
       <a href="#skip" className="sr-only focus:not-sr-only">
@@ -24,9 +28,13 @@ export default async function Navbar() {
               blurDataURL='/logo.png' />
             </Link>
             </div>
-          <div className="flex justify-end space-x-8">
+          {user ? <div className="flex justify-end space-x-8">
             <DropDownMenuForm />
-          </div>
+          </div> :
+          <Link href="/signin" className={s.link}>
+            Sign in
+          </Link>
+          }
         </div>
       </div>
     </nav>

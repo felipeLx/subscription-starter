@@ -50,6 +50,23 @@ export async function getSubscription() {
   }
 }
 
+export async function getSubscriptionById(id: string) {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: subscription } = await supabase
+      .from('subscriptions')
+      .select('*, prices(*, products(*))')
+      .in('status', ['active'])
+      .eq('user_id', id)
+      .maybeSingle()
+      .throwOnError();
+    return subscription;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
 export const getActiveProductsWithPrices = async () => {
   const supabase = createServerSupabaseClient();
   const { data, error } = await supabase
@@ -112,10 +129,8 @@ export const getBankById = async(name: string) => {
   try {
     const { data: bank } = await supabase
       .from('banks')
-      .select('*')
-      .eq('name', name)
-      .order('name')
-      .maybeSingle()
+      .select('*, countries(country)')
+      .ilike('name', `%${name}%`)
     return bank ?? [];
   } catch (error) {
     console.log(error);
@@ -204,11 +219,22 @@ export const getLimits = async() => {
   try {
     const { data: limits } = await supabase
       .from('payments')
-      .select('*, banks(*)')
-      .in('bankId', ['id'])
-      .maybeSingle()
+      .select('*, banks(id, name, country_id)')
       .throwOnError();
-    return limits;
+    console.log('limits', limits);
+
+    const { data: countries } = await supabase
+      .from('countries')
+      .select('*');
+    
+    const mergedData = limits?.map(limit => {
+      const country = countries?.find(country => country.id === limit?.banks?.country_id);
+      return {
+        ...limit,
+        country,
+      };
+    });
+    return mergedData;
   } catch (error) {
     console.log(error);
     return null

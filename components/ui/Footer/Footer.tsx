@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from '@/components/icons/Logo';
-import GitHub from '@/components/icons/GitHub';
 
 export default function Footer() {
   return (
@@ -14,12 +12,12 @@ export default function Footer() {
           >
             <span className="mr-2 border rounded-full border-zinc-700">
             <Image 
-              src='/logo.png' 
+              src='/logo-s.png' 
               alt='Latam Payments' 
-              width={50} height={50} 
+              width={100} height={100} 
               className='rounded bg-inherit w-auto h-auto' security='https' 
               placeholder="blur"
-              blurDataURL='/logo.png' />
+              blurDataURL='/logo-s.png' />
             </span>
             <span>LATAM PAYMENTS</span>
           </Link>
@@ -78,14 +76,6 @@ export default function Footer() {
           </ul>
         </div>
         <div className="flex items-start col-span-1 text-white lg:col-span-6 lg:justify-end">
-          <div className="flex items-center h-10 space-x-6">
-            <a
-              aria-label="Github Repository"
-              href="https://github.com/vercel/nextjs-subscription-payments"
-            >
-              <GitHub />
-            </a>
-          </div>
         </div>
       </div>
       <div className="flex flex-col items-center justify-between py-12 space-y-4 md:flex-row bg-zinc-900">
@@ -93,17 +83,7 @@ export default function Footer() {
           <span>
             &copy; {new Date().getFullYear()} LATAM PAYMENTS, Inc. All rights reserved.
           </span>
-        </div>
-        <div className="flex items-center">
-          <span className="text-white">Crafted by</span>
-          <a href="https://vercel.com" aria-label="Vercel.com Link">
-            <img
-              src="/vercel.svg"
-              alt="Vercel.com Logo"
-              className="inline-block h-6 ml-4 text-white"
-            />
-          </a>
-        </div>
+        </div>  
       </div>
     </footer>
   );
