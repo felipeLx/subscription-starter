@@ -9,15 +9,29 @@ import {
   } from "@/components/ui/dropdown-menu";
 import SearchBar from '@/app/search-bar';
 import SignOutButton from "./SignOutButton";
-import Button from '../Button';
-import { createServerSupabaseClient } from '@/app/supabase-server';
 import s from './Navbar.module.css';
+import { createServerSupabaseClient, getSubscription, getSubscriptionById } from '@/app/supabase-server';
 
 const DropDownMenuForm = async() => {
     const supabase = createServerSupabaseClient();
     const {
-      data: { user }
+        data: { user }
     } = await supabase.auth.getUser();
+    const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+
+  if(!subscribed) {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger  className={s.link} aria-label='Menu'>Options</DropdownMenuTrigger>
+            <DropdownMenuContent className='bg-[#126E82]'>
+                <DropdownMenuItem>
+                    <SignOutButton />
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+        )
+    }
+    
     return(
         <DropdownMenu>
             <DropdownMenuTrigger  className={s.link} aria-label='Menu'>Options</DropdownMenuTrigger>
@@ -35,13 +49,7 @@ const DropDownMenuForm = async() => {
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                {user ? (
-                <SignOutButton />
-                ) : (
-                <Link href="/signin" className={s.link}>
-                    Sign in
-                </Link>
-                )}
+                    <SignOutButton />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

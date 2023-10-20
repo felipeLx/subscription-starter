@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -10,10 +9,26 @@ import {
   } from "@/components/ui/table"
 import { getSubscription } from '@/app/supabase-server';
 import { getLimits, getUserDetails } from "@/app/supabase-server";
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types_db';
-  
+
+interface Limits {
+    id: string | null | undefined;
+    type: string | null | undefined;
+    symbol: string | null | undefined;
+    limits: string | null | undefined;
+    information: string | null | undefined;
+    bank_id: string | null | undefined;
+    country?: {
+      id: string | null | undefined;
+      country: string | null | undefined;
+      flag: string | null | undefined;
+    };
+    bank?: {
+      id: string | null;
+      name: string | null;
+      country_id: string | null;
+    };
+};
+
 export default async function Limits() {
     const [subscription] = await Promise.all([
         getSubscription()
@@ -25,7 +40,7 @@ export default async function Limits() {
         return redirect('/sign-in');
     }
     
-    let data: any = await getLimits();
+    let data: Limits[] | null | undefined = await getLimits();
     
     return(
         <>
@@ -40,18 +55,14 @@ export default async function Limits() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data && data.map((ct: any) =>
-                        ct.banks.map((bk: any) => 
-                            bk.payment.map((py: any) =>
-                            <TableRow key={bk.payment.id}>
-                                <TableCell className="font-medium">{ct.country}</TableCell>
-                                <TableCell>{bk.name}</TableCell>
-                                <TableCell>{py.type}</TableCell>
-                                <TableCell>{py.limits}</TableCell>
-                                <TableCell className="text-right">{py.information}</TableCell>
+                    {data && data.map((pmt: any) =>
+                       <TableRow key={pmt.id}>
+                                <TableCell className="font-medium">{pmt.country.country}</TableCell>
+                                <TableCell>{pmt.banks.name}</TableCell>
+                                <TableCell>{pmt.type}</TableCell>
+                                <TableCell>{pmt.limits}</TableCell>
+                                <TableCell className="text-right">{pmt.information}</TableCell>
                             </TableRow>
-                            )
-                    )
                     )}
                 </TableBody>
             </Table>

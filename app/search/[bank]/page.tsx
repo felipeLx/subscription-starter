@@ -8,15 +8,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
 import { getBankById, getUserDetails } from '@/app/supabase-server';
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types_db';
 import { getSubscription } from '@/app/supabase-server';
+import { Database } from "@/types_db";
+
 type Params = {
     params: {
         bank: string
     }
-  }
+};
+
+interface Banks {
+    id: string | null | undefined;
+    name: string | null | undefined;
+    logo: string | null | undefined;
+    country_id: string | null | undefined;
+    countries?: {
+        country: string
+    } | null | undefined
+};
 
 const SearchPage = async({ params: { bank } }: Params) => {
     const user = getUserDetails();
@@ -24,7 +33,7 @@ const SearchPage = async({ params: { bank } }: Params) => {
         getSubscription()
       ]);
     let bankName = bank;
-    const {data }: any = await getBankById(bankName);
+    const data: Banks[] |null | undefined = await getBankById(bankName);
     
     if(!subscription) return redirect('/account');
     if (!user) {
@@ -42,22 +51,22 @@ const SearchPage = async({ params: { bank } }: Params) => {
             <span className="font-semibold">{bankName}</span>
             </span>
             <div className="flex w-full flex-wrap justify-around items-start">
-                {data ? data.map((ct: any) => 
+                {data ? data.map((ct) => 
                 <Link key={ct.id} href={`/bank/${ct.id}`} className=''>
                 <Card className='flex flex-col bg-[#126E82] m-4 p-4 text-center'>
                     <CardHeader>
-                    <CardTitle className='text-sm'>{ct.country.country}{` > `}{ct.name}</CardTitle>
+                    <CardTitle className='text-sm'>{ct.countries?.country}{` > `}{ct.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
                     <Image
                         className="rounded-sm h-48 w-48 object-cover object-center"
-                        src={ct.logo}
-                        alt={ct.name}
+                        src={ct.logo ? ct.logo : ""}
+                        alt={ct.name ? ct.name : ""}
                         width={400}
                         height={400}
                         security='https'
                         placeholder="blur"
-                        blurDataURL={ct.logo}
+                        blurDataURL={ct.logo ? ct.logo : ""}
                     />
                     </CardContent>
                 </Card>

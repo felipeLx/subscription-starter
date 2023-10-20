@@ -3,7 +3,6 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
-import { FormItem } from '@/components/ui/form';
 
 export const dynamic = 'force-dynamic'
 export default function SearchBar() {
