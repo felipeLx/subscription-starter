@@ -200,7 +200,7 @@ export default function Pricing({
             )}
           </div>
         </div>
-        <div className="mt-12 text-center space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl justify-center lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
+        <div className="mt-12 text-center space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 justify-center xl:grid-cols-2">
           {products.map((product) => {
             const price = product?.prices?.find(
               (price) => price.interval === billingInterval
