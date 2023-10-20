@@ -8,14 +8,19 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+import { getSubscription } from '@/app/supabase-server';
 import { getLimits, getUserDetails } from "@/app/supabase-server";
 import { cookies } from 'next/headers';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types_db';
   
 export default async function Limits() {
-    const user = getUserDetails();
+    const [subscription] = await Promise.all([
+        getSubscription()
+      ]);
+    const user = await getUserDetails();
     
+    if(!subscription) return redirect('/account');
     if(!user) {
         return redirect('/sign-in');
     }

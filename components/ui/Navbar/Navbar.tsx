@@ -1,17 +1,10 @@
 import Link from 'next/link';
-import { createServerSupabaseClient } from '@/app/supabase-server';
 import Image from 'next/image';
-import Logo from '@/components/icons/Logo';
-// import SignOutButton from './SignOutButton';
 
 import s from './Navbar.module.css';
 import DropDownMenuForm from './DropDownMenuForm';
 
 export default async function Navbar() {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
 
   return (
     <nav className={s.root}>

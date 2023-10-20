@@ -2,9 +2,7 @@
 import Image from 'next/image';
 import { getUserDetails, getSteps } from '@/app/supabase-server';
 import { redirect } from "next/navigation";
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types_db';
+import { getSubscription } from '@/app/supabase-server';
 
 type Params = {
   params: {
@@ -13,10 +11,15 @@ type Params = {
 }
 
 export default async function Method({ params: { methodId } }: Params) {
-  const user = getUserDetails();
+  const user = await getUserDetails();
+  const [subscription] = await Promise.all([
+    getSubscription()
+  ]);
   let fetchedPmt = await getSteps();
   let steps = fetchedPmt?.filter(dt => dt.payment_id === methodId);
 
+  
+  if(!subscription) return redirect('/account');
   if (!user) {
     return redirect('/sign-in');
   }

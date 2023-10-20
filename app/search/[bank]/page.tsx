@@ -11,7 +11,7 @@ import { getBankById, getUserDetails } from '@/app/supabase-server';
 import { cookies } from 'next/headers';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types_db';
-
+import { getSubscription } from '@/app/supabase-server';
 type Params = {
     params: {
         bank: string
@@ -20,10 +20,13 @@ type Params = {
 
 const SearchPage = async({ params: { bank } }: Params) => {
     const user = getUserDetails();
-    
+    const [subscription] = await Promise.all([
+        getSubscription()
+      ]);
     let bankName = bank;
     const {data }: any = await getBankById(bankName);
     
+    if(!subscription) return redirect('/account');
     if (!user) {
         return redirect('/sign-in');
     }

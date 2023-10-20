@@ -9,9 +9,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
 import { getMethods, getUserDetails } from '@/app/supabase-server';
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types_db';
+import { getSubscription } from '@/app/supabase-server';
 
 type Params = {
   params: {
@@ -20,9 +18,13 @@ type Params = {
 }
 export default async function Bank({ params: { bankId } }: Params) {
   const user = getUserDetails();
+  const [subscription] = await Promise.all([
+    getSubscription()
+  ]);
   let fetchedMethods = await getMethods();
   let methods = fetchedMethods?.filter(dt => dt.bank_id === bankId);
   
+  if(!subscription) return redirect('/account');
   if (!user) {
     return redirect('/sign-in');
   }
