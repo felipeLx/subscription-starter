@@ -8,7 +8,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
-import { getMethods, getUserDetails } from '@/app/supabase-server';
+import { createServerSupabaseClient, getMethods, getSubscriptionById, getUserDetails } from '@/app/supabase-server';
 import { getSubscription } from '@/app/supabase-server';
 
 type Params = {
@@ -17,17 +17,19 @@ type Params = {
   }
 }
 export default async function Bank({ params: { bankId } }: Params) {
-  const user = getUserDetails();
-  const [subscription] = await Promise.all([
-    getSubscription()
-  ]);
-  let fetchedMethods = await getMethods();
-  let methods = fetchedMethods?.filter(dt => dt.bank_id === bankId);
+  const supabase = createServerSupabaseClient();
+  const {
+      data: { user }
+  } = await supabase.auth.getUser();
+  const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+  if(!subscribed) return redirect('/account');
   
-  if(!subscription) return redirect('/account');
   if (!user) {
     return redirect('/sign-in');
   }
+
+  let fetchedMethods = await getMethods();
+  let methods = fetchedMethods?.filter(dt => dt.bank_id === bankId);
 
   return (
     <div className="flex w-full flex-wrap justify-around items-start">

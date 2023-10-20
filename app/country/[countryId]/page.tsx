@@ -7,7 +7,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
-import { getBanks, getUserDetails } from '@/app/supabase-server';
+import { createServerSupabaseClient, getBanks, getSubscriptionById, getUserDetails } from '@/app/supabase-server';
 import { getSubscription } from '@/app/supabase-server';
 
 type Params = {
@@ -17,17 +17,18 @@ type Params = {
 }
 
 export default async function Country({ params: { countryId } }: Params) {
-  const user = getUserDetails();
-  const [subscription] = await Promise.all([
-    getSubscription()
-  ]);
-  let fetchedBanks = await getBanks();
-  let banks = fetchedBanks?.filter(dt => dt.country_id === countryId);
+  const supabase = createServerSupabaseClient();
+  const {
+      data: { user }
+  } = await supabase.auth.getUser();
+  const subscribed = await getSubscriptionById(user?.id ? user.id : '');
+  if(!subscribed) return redirect('/account');
 
-  if(!subscription) return redirect('/account');
   if (!user) {
     return redirect('/sign-in');
   }
+  let fetchedBanks = await getBanks();
+  let banks = fetchedBanks?.filter(dt => dt.country_id === countryId);
     
   return (
       <div className="flex w-full flex-wrap justify-around items-start">
