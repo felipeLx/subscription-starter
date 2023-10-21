@@ -8,15 +8,18 @@ import {
 import Image from 'next/image';
 import { createServerSupabaseClient, getCountries, getSubscriptionById } from '@/app/supabase-server';
 import { redirect } from 'next/navigation';
-
+import { AuthError, AuthUser, Session, User } from '@supabase/supabase-js';
 export default async function Dashboard() {
   
   const supabase = createServerSupabaseClient();
-  
+  let { data: { session } } = await supabase.auth.getSession();
+  let userJwt = session?.provider_token
+  if(!userJwt) {
+    await supabase.auth.signOut();
+  }
   const {
       data: { user }
   } = await supabase.auth.getUser();
-  const session = await supabase.auth.getSession();
   async function logoutOthers() {
     await supabase.auth.signOut({scope: 'others'});
     return;
