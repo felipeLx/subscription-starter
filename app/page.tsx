@@ -11,9 +11,7 @@ export default async function PricingPage() {
     getActiveProductsWithPrices(),
     getSubscription()
   ]);
-  console.log('session', session)
-  console.log('products', products)
-  console.log('subscription', subscription)
+  
   return (
     <Pricing
       session={session}

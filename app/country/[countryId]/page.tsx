@@ -7,8 +7,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
-import { createServerSupabaseClient, getBanks, getSubscriptionById, getUserDetails } from '@/app/supabase-server';
-import { getSubscription } from '@/app/supabase-server';
+import { createServerSupabaseClient, getBanks, getSubscriptionById } from '@/app/supabase-server';
 
 type Params = {
   params: {
