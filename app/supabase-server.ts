@@ -50,6 +50,21 @@ export async function getSubscription() {
   }
 }
 
+export async function getSessions() {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: sessions } = await supabase
+      .from('auth')
+      .select('*')
+      .throwOnError();
+    return sessions;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+
+};
+
 export async function getSubscriptionById(id: string) {
   const supabase = createServerSupabaseClient();
   try {
@@ -221,7 +236,6 @@ export const getLimits = async() => {
       .from('payments')
       .select('*, banks(id, name, country_id)')
       .throwOnError();
-    console.log('limits', limits);
 
     const { data: countries } = await supabase
       .from('countries')

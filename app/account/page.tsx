@@ -40,7 +40,6 @@ export default async function Account() {
     const newName = formData.get('name') as string;
     const supabase = createServerActionClient<Database>({ cookies });
     const session = await getSession();
-    console.log('session ', session)
     const user: any = session?.user;
     const { error } = await supabase
       .from('users')

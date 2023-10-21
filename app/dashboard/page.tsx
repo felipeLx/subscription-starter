@@ -10,10 +10,21 @@ import { createServerSupabaseClient, getCountries, getSubscriptionById } from '@
 import { redirect } from 'next/navigation';
 
 export default async function Dashboard() {
+  
   const supabase = createServerSupabaseClient();
+  
   const {
       data: { user }
   } = await supabase.auth.getUser();
+  const session = await supabase.auth.getSession();
+  async function logoutOthers() {
+    await supabase.auth.signOut({scope: 'others'});
+    return;
+  }
+  if(session) {
+    logoutOthers();
+  }
+
   const subscribed = await getSubscriptionById(user?.id ? user.id : '');
   if(!subscribed) return redirect('/account');
 
