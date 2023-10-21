@@ -36,7 +36,7 @@ export default function Pricing({
   user,
   products,
   subscription
-}: Props) {
+}: Props) {  
   const intervals = Array.from(
     new Set(
       products.flatMap((product) =>
