@@ -10,7 +10,7 @@ import {
 import SearchBar from '@/app/search-bar';
 import SignOutButton from "./SignOutButton";
 import s from './Navbar.module.css';
-import { createServerSupabaseClient, getSubscription, getSubscriptionById } from '@/app/supabase-server';
+import { createServerSupabaseClient, getSubscriptionById } from '@/app/supabase-server';
 
 const DropDownMenuForm = async() => {
     const supabase = createServerSupabaseClient();

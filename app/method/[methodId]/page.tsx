@@ -1,8 +1,7 @@
 
 import Image from 'next/image';
-import { getUserDetails, getSteps, createServerSupabaseClient, getSubscriptionById } from '@/app/supabase-server';
+import { getSteps, createServerSupabaseClient, getSubscriptionById } from '@/app/supabase-server';
 import { redirect } from "next/navigation";
-import { getSubscription } from '@/app/supabase-server';
 
 type Params = {
   params: {

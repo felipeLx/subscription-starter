@@ -7,8 +7,8 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { createServerSupabaseClient, getSubscription, getSubscriptionById } from '@/app/supabase-server';
-import { getLimits, getUserDetails } from "@/app/supabase-server";
+import { createServerSupabaseClient, getSubscriptionById } from '@/app/supabase-server';
+import { getLimits } from "@/app/supabase-server";
 
 interface Limits {
     id: string | null | undefined;
@@ -42,7 +42,7 @@ export default async function Limits() {
     }
     
     let data: Limits[] | null | undefined = await getLimits();
-    
+
     return(
         <>
             <Table>
