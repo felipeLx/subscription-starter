@@ -11,8 +11,7 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies })
-    let sessionActive = await supabase.auth.getSession()
-    if(sessionActive) await supabase.auth.signOut({scope: 'others'})
+    
     await supabase.auth.exchangeCodeForSession(code)
   }
 
