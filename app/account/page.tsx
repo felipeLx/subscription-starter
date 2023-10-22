@@ -1,3 +1,18 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { Database } from '@/types_db'
+import AccountForm from './account-form'
+
+export default async function Account() {
+  const supabase = createServerComponentClient<Database>({ cookies })
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  return <AccountForm session={session} />
+}
+/*
 import ManageSubscriptionButton from './ManageSubscriptionButton';
 import {
   getSession,
@@ -105,7 +120,7 @@ export default async function Account() {
                 form="nameForm"
                 disabled={true}
               >
-                {/* WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! */}
+                { WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! }
                 Update Name
               </Button>
             </div>
@@ -138,7 +153,7 @@ export default async function Account() {
                 form="emailForm"
                 disabled={true}
               >
-                {/* WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! */}
+                { WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! }
                 Update Email
               </Button>
             </div>
@@ -183,3 +198,4 @@ function Card({ title, description, footer, children }: Props) {
     </div>
   );
 }
+*/
