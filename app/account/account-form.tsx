@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
   const [loading, setLoading] = useState(true)
-  const [fullname, setFullname] = useState<string | null>(null)
+  const [full_name, setFullname] = useState<string | null>(null)
   const [billing_address, setBilling_address] = useState<string | null>(null)
   const [payment_method, setPayment_method] = useState<string | null>(null)
   const [avatar_url, setAvatarUrl] = useState<string | null>(null)
@@ -89,7 +89,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
           size={150}
           onUpload={(url) => {
             setAvatarUrl(url)
-            updateProfile({ fullname, avatar_url: url, billing_address, payment_method })
+            updateProfile({ full_name, avatar_url: url, billing_address, payment_method })
           }}
         />
         <div>
@@ -101,7 +101,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
           <Input
             id="fullName"
             type="text"
-            value={fullname || ''}
+            value={full_name || ''}
             onChange={(e) => setFullname(e.target.value)}
           />
         </div>
@@ -129,7 +129,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
         <div>
           <button
             className="flex items-center justify-center border-none transition hover:scale-105 active:scale-95 bg-[#444444]"
-            onClick={() => updateProfile({ fullname, avatar_url, billing_address, payment_method })}
+            onClick={() => updateProfile({ full_name, avatar_url, billing_address, payment_method })}
             disabled={loading}
           >
             {loading ? 'Loading ...' : 'Update'}
