@@ -1,18 +1,3 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
-import { Database } from '@/types_db'
-import AccountForm from './account-form'
-
-export default async function Account() {
-  const supabase = createServerComponentClient<Database>({ cookies })
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  return <AccountForm session={session} />
-}
-/*
 import ManageSubscriptionButton from './ManageSubscriptionButton';
 import {
   getSession,
@@ -21,12 +6,13 @@ import {
 } from '@/app/supabase-server';
 import Button from '@/components/ui/Button';
 import { Database } from '@/types_db';
+import { updateUserData } from '@/utils/helpers';
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
+import { FormEvent, ReactNode } from 'react';
 
 export default async function Account() {
   const [session, userDetails, subscription] = await Promise.all([
@@ -52,18 +38,15 @@ export default async function Account() {
   const updateName = async (formData: FormData) => {
     'use server';
 
+    //console.log('formData', formData)
     const newName = formData.get('name') as string;
-    const supabase = createServerActionClient<Database>({ cookies });
-    const session = await getSession();
-    const user: any = session?.user;
-    const { error } = await supabase
-      .from('users')
-      .update({ full_name: newName })
-      .eq('id', user.id);
-    if (error) {
-      console.log(error);
-    }
-    revalidatePath('/account');
+    const response = await updateUserData({
+      url: 'https://subscription-starter-beta-lime.vercel.app/api/username' || 'http://localhost:3000/api/username',
+      data: { full_name: newName}
+    });
+
+    const data = await response.json(); 
+    return data;
   };
 
   const updateEmail = async (formData: FormData) => {
@@ -118,9 +101,8 @@ export default async function Account() {
                 variant="slim"
                 type="submit"
                 form="nameForm"
-                disabled={true}
+                disabled={false}
               >
-                { WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! }
                 Update Name
               </Button>
             </div>
@@ -153,7 +135,7 @@ export default async function Account() {
                 form="emailForm"
                 disabled={true}
               >
-                { WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! }
+                {/* WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! */}
                 Update Email
               </Button>
             </div>
@@ -197,5 +179,21 @@ function Card({ title, description, footer, children }: Props) {
       </div>
     </div>
   );
+}
+
+/*
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { Database } from '@/types_db'
+import AccountForm from './account-form'
+
+export default async function Account() {
+  const supabase = createServerComponentClient<Database>({ cookies })
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  return <AccountForm session={session} />
 }
 */

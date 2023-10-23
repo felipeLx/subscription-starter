@@ -1,6 +1,7 @@
 import { Database } from '@/types_db';
 
 type Price = Database['public']['Tables']['prices']['Row'];
+type User = Database['public']['Tables']['users']['Row'];
 
 export const getURL = () => {
   let url =
@@ -25,6 +26,29 @@ export const postData = async ({
 
   const res = await fetch(url, {
     method: 'POST',
+    headers: new Headers({ 'Content-Type': 'application/json' }),
+    credentials: 'same-origin',
+    body: JSON.stringify(data)
+  });
+
+  if (!res.ok) {
+    console.log('Error in postData', { url, data, res });
+
+    throw Error(res.statusText);
+  }
+
+  return res.json();
+};
+
+export const updateUserData = async ({
+  url,
+  data
+}: {
+  url: string;
+  data?: { full_name: User };
+}) => {
+  const res = await fetch(url, {
+    method: 'PUT',
     headers: new Headers({ 'Content-Type': 'application/json' }),
     credentials: 'same-origin',
     body: JSON.stringify(data)
