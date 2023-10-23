@@ -41,7 +41,7 @@ export default async function Account() {
     //console.log('formData', formData)
     const newName: any = formData.get('name') as string;
     const response = await updateUserData({
-      url: 'https://subscription-starter-beta-lime.vercel.app/api/username' || 'http://localhost:3000/api/username',
+      url: 'https://subscription-starter-beta-lime.vercel.app/api/username',
       data: { 
         full_name: newName
       }
@@ -103,7 +103,7 @@ export default async function Account() {
                 variant="slim"
                 type="submit"
                 form="nameForm"
-                disabled={false}
+                disabled={true}
               >
                 Update Name
               </Button>
