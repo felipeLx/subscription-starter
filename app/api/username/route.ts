@@ -14,6 +14,7 @@ export async function PUT(req: Request) {
             const session = await getSession();
             const fullName: any = req.body;
             const user: any = session?.user;
+            console.log('fullName', fullName)
             const { error } = await supabase
               .from('users')
               .update({ full_name: fullName })
