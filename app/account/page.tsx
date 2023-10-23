@@ -39,10 +39,12 @@ export default async function Account() {
     'use server';
 
     //console.log('formData', formData)
-    const newName = formData.get('name') as string;
+    const newName: any = formData.get('name') as string;
     const response = await updateUserData({
       url: 'https://subscription-starter-beta-lime.vercel.app/api/username' || 'http://localhost:3000/api/username',
-      data: { full_name: newName}
+      data: { 
+        full_name: newName
+      }
     });
 
     const data = await response.json(); 
