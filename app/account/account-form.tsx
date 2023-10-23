@@ -11,8 +11,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
   const [loading, setLoading] = useState(true)
   const [full_name, setFullname] = useState<string | null>(null)
-  const [billing_address, setBilling_address] = useState<string | null>(null)
-  const [payment_method, setPayment_method] = useState<string | null>(null)
+  //const [billing_address, setBilling_address] = useState<string | null>(null)
+  //const [payment_method, setPayment_method] = useState<string | null>(null)
   const [avatar_url, setAvatarUrl] = useState<string | null>(null)
   if(session === null) return null
   const user = session.user;
@@ -23,7 +23,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
 
       let { data, error, status } = await supabase
         .from('users')
-        .select(`full_name, avatar_url, billing_address, payment_method`)
+        .select(`full_name, avatar_url`)
         .eq('id', user?.id)
         .single()
 
@@ -34,8 +34,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
       if (data) {
         setFullname(data?.full_name)
         setAvatarUrl(data?.avatar_url)
-        setBilling_address(JSON.stringify(data?.billing_address))
-        setPayment_method(JSON.stringify(data?.payment_method))
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -50,26 +48,21 @@ export default function AccountForm({ session }: { session: Session | null }) {
 
   async function updateProfile({
     full_name,
-    avatar_url,
-    billing_address,
-    payment_method
+    avatar_url
   }: {
     full_name: string | null
     avatar_url: string | null
-    billing_address: string | null
-    payment_method: string | null
   }) {
+    
+    console.log('userid', user?.id)
+    console.log('avatar_url', avatar_url)
     try {
       setLoading(true)
 
-      let billingJson = JSON.stringify(billing_address)
-      let paymentJson = JSON.stringify(payment_method)
       let { error } = await supabase.from('users').upsert({
         id: user?.id as string,
         full_name,
-        avatar_url,
-        billingJson,
-        paymentJson
+        avatar_url
       })
       if (error) throw error
       alert('Profile updated!')
@@ -89,7 +82,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
           size={150}
           onUpload={(url) => {
             setAvatarUrl(url)
-            updateProfile({ full_name, avatar_url: url, billing_address, payment_method })
+            updateProfile({ full_name, avatar_url: url })
           }}
         />
         <div>
@@ -106,30 +99,9 @@ export default function AccountForm({ session }: { session: Session | null }) {
           />
         </div>
         <div>
-          <Label htmlFor="username">Billing Address</Label>
-          <Input
-            id="billingAddress"
-            className='text-black'
-            type="text"
-            value={billing_address || ''}
-            onChange={(e) => setBilling_address(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="website">Payment Methods</Label>
-          <Input
-            id="paymentMethod"
-            className='text-black'
-            type="url"
-            value={payment_method || ''}
-            onChange={(e) => setPayment_method(e.target.value)}
-          />
-        </div>
-
-        <div>
           <button
             className="flex items-center justify-center border-none transition hover:scale-105 active:scale-95 bg-[#444444]"
-            onClick={() => updateProfile({ full_name, avatar_url, billing_address, payment_method })}
+            onClick={() => updateProfile({ full_name, avatar_url })}
             disabled={loading}
           >
             {loading ? 'Loading ...' : 'Update'}
