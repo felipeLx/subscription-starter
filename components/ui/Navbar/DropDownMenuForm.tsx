@@ -10,7 +10,16 @@ import {
 import SearchBar from '@/app/search-bar';
 import SignOutButton from "./SignOutButton";
 import s from './Navbar.module.css';
-import { createServerSupabaseClient, getSubscriptionById } from '@/app/supabase-server';
+import { getSubscriptionById } from '@/app/supabase-server';
+import { Database } from '@/types_db';
+
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { cache } from 'react';
+
+export const createServerSupabaseClient = cache(() =>
+  createServerComponentClient<Database>({ cookies })
+);
 
 const DropDownMenuForm = async() => {
     const supabase = createServerSupabaseClient();

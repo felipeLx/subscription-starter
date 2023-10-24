@@ -46,7 +46,7 @@ const SearchPage = async({ params: { bank } }: Params) => {
 
     return (
         <>
-            <span className="text-xl">
+            <span className="flex flex-col mt-10 text-xl">
             Showing results for:{" "}
             <span className="font-semibold">{bankName}</span>
             </span>

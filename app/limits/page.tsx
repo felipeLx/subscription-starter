@@ -45,7 +45,7 @@ export default async function Limits() {
 
     return(
         <>
-            <Table>
+            <Table className="flex mt-20 pt-20">
                 <TableHeader>
                     <TableRow  className="w-full text-center font-bold justify-center items-center">
                     <TableHead className="w-[100px] text-center font-bold">Country</TableHead>
