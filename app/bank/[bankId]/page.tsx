@@ -31,7 +31,7 @@ export default async function Bank({ params: { bankId } }: Params) {
   let methods = fetchedMethods?.filter(dt => dt.bank_id === bankId);
 
   return (
-    <div className="mt-10 pt-4 flex w-full flex-wrap justify-around items-start">
+    <div className="mt-10 pt-10 flex w-full flex-wrap justify-around items-start">
       {methods && methods.map((ct, index) => 
       <Link key={index} href={`/method/${ct.id}`}>
       <Card className='flex flex-wrap bg-[#126E82] m-4 p-4 text-center w-96 text-white justify-center'>
