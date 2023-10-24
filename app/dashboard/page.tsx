@@ -31,7 +31,7 @@ export default async function Dashboard() {
 
   return (
     <>
-      <div className="flex w-full flex-wrap justify-around items-start">
+      <div className="mt-10 pt-4 flex w-full flex-wrap justify-around items-start">
         {countries && countries.map((ct) => 
         <Link key={ct.id} href={`/country/${ct.id}`} >
           <Card className='flex flex-col bg-[#126E82] m-4 p-4 text-center'>
