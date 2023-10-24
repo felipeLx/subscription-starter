@@ -40,7 +40,7 @@ export default async function Bank({ params: { bankId } }: Params) {
           <CardDescription className="text-white">Limite {ct.limits}</CardDescription>
           </CardHeader>
           <CardContent className="justify-center">
-            <p className='text-justify'>{ct.information}</p>
+            <p className='text-justify px-4'>{ct.information}</p>
             <Image
                 className="pt-2 rounded-sm object-cover object-center"
                 src={ct?.symbol}
