@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
 const meta = {
-  title: 'Latam Payments',
+  title: 'Latam Banks',
   description: 'How to do payments with any bank on LATAM',
   cardImage: '/og.png',
   robots: 'follow, index',
