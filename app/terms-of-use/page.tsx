@@ -7,11 +7,11 @@ export default function TermsOfUse() {
 
             <p className="text-base font-bold text-left">1. Introduction</p>
 
-            <p className="text-base text-left">Welcome to Latam Payments Inc ("Latam Payments," "we," "our," or "us"). These Terms of Use ("Terms") govern your use of our software-as-a-service (SaaS) platform, website, and any related services (collectively, the "Service"). By accessing or using the Service, you agree to comply with these Terms. If you do not agree with these Terms, please do not use the Service.</p>
+            <p className="text-base text-left">Welcome to Latam Banks Inc ("Latam Banks," "we," "our," or "us"). These Terms of Use ("Terms") govern your use of our software-as-a-service (SaaS) platform, website, and any related services (collectively, the "Service"). By accessing or using the Service, you agree to comply with these Terms. If you do not agree with these Terms, please do not use the Service.</p>
 
             <p className="text-base font-bold text-left">2. Services Provided</p>
 
-            <p className="text-base text-left">Latam Payments Inc offers a platform that provides information on how to handle payments and transfers from banks in Latin America. We aggregate and provide information collected from multiple sources to assist you in managing your financial transactions. However, it is important to note that we are not responsible for the accuracy, completeness, or reliability of the information we provide. We do not have control over the policies, procedures, or changes that may occur at the banks and the information providers. Therefore, your use of the Service is at your own risk, and you acknowledge that you are solely responsible for any actions or decisions made based on the information provided.</p>
+            <p className="text-base text-left">Latam Banks Inc offers a platform that provides information on how to handle payments and transfers from banks in Latin America. We aggregate and provide information collected from multiple sources to assist you in managing your financial transactions. However, it is important to note that we are not responsible for the accuracy, completeness, or reliability of the information we provide. We do not have control over the policies, procedures, or changes that may occur at the banks and the information providers. Therefore, your use of the Service is at your own risk, and you acknowledge that you are solely responsible for any actions or decisions made based on the information provided.</p>
 
             <p className="text-base font-bold text-left">3. Eligibility</p>
 
@@ -39,7 +39,7 @@ export default function TermsOfUse() {
 
             <p className="text-base font-bold text-left">9. Limitation of Liability</p>
 
-            <p className="text-base text-left">Latam Payments Inc, its directors, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of your use of the Service or any actions taken based on the information provided.</p>
+            <p className="text-base text-left">Latam Banks Inc, its directors, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of your use of the Service or any actions taken based on the information provided.</p>
 
             <p className="text-base font-bold text-left">10. Governing Law</p>
 
@@ -49,7 +49,7 @@ export default function TermsOfUse() {
 
             <p className="text-base text-left">If you have any questions or concerns about these Terms or our Service, please contact us at vencedorconsultoria@gmail.com.</p>
 
-            <h6>Thank you for using Latam Payments Inc.</h6>
+            <h6>Thank you for using Latam Banks Inc.</h6>
         </div>
     )
 }

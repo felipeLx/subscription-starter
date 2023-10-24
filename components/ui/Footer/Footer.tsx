@@ -13,13 +13,13 @@ export default function Footer() {
             <span className="mr-2 border rounded-full border-zinc-700">
             <Image 
               src='/logo-s.png' 
-              alt='Latam Payments' 
+              alt='Latam Banks' 
               width={100} height={100} 
               className='rounded bg-inherit w-auto h-auto' security='https' 
               placeholder="blur"
               blurDataURL='/logo-s.png' />
             </span>
-            <span>LATAM PAYMENTS</span>
+            <span>Latam Banks</span>
           </Link>
         </div>
         <div className="col-span-1 lg:col-span-2">
@@ -81,7 +81,7 @@ export default function Footer() {
       <div className="flex flex-col items-center justify-between py-12 space-y-4 md:flex-row bg-zinc-900">
         <div>
           <span>
-            &copy; {new Date().getFullYear()} LATAM PAYMENTS, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Latam Banks, Inc. All rights reserved.
           </span>
         </div>  
       </div>

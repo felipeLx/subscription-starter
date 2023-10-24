@@ -17,7 +17,7 @@ export default async function SignIn() {
         <div className="flex justify-center pb-12 ">
         <Image 
               src='/logo-s.png' 
-              alt='Latam Payments' 
+              alt='Latam Banks' 
               width={64} height={64} 
               className='rounded bg-inherit w-auto h-auto' security='https' 
               placeholder="blur"

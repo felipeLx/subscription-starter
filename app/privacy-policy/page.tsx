@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
 
             <p className="text-base font-bold text-left">1. Introduction</p>
 
-            <p className="text-base text-left">Welcome to Latam Payments Inc ("Latam Payments," "we," "our," or "us"). This Privacy Policy outlines how we collect, use, disclose, and protect your personal information when you access or use our software-as-a-service (SaaS) platform, website, and related services (collectively, the "Service"). Please read this Privacy Policy carefully to understand how we handle your information.</p>
+            <p className="text-base text-left">Welcome to Latam Banks Inc ("Latam Banks," "we," "our," or "us"). This Privacy Policy outlines how we collect, use, disclose, and protect your personal information when you access or use our software-as-a-service (SaaS) platform, website, and related services (collectively, the "Service"). Please read this Privacy Policy carefully to understand how we handle your information.</p>
 
             <p className="text-base font-bold text-left">2. Information We Collect</p>
 
@@ -61,7 +61,7 @@ export default function PrivacyPolicy() {
 
             <p className="text-base text-left">This Privacy Policy is governed by and construed in accordance with the laws of Brazil.</p>
 
-            <p className="text-base text-left">Thank you for using Latam Payments Inc.</p>
+            <p className="text-base text-left">Thank you for using Latam Banks Inc.</p>
         </div>
     )
 }
