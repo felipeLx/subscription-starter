@@ -46,11 +46,11 @@ const SearchPage = async({ params: { bank } }: Params) => {
 
     return (
         <>
-            <span className="flex flex-col mt-10 text-xl">
+            <span className="flex flex-row mt-20 text-xl">
             Showing results for:{" "}
-            <span className="font-semibold">{bankName}</span>
+            <span className="font-semibold pl-2">{bankName.toUpperCase()}</span>
             </span>
-            <div className="flex w-full flex-wrap justify-around items-start">
+            <div className="flex mt-2 w-full flex-wrap justify-around items-start">
                 {data ? data.map((ct) => 
                 <Link key={ct.id} href={`/bank/${ct.id}`} className=''>
                 <Card className='flex flex-col bg-[#126E82] m-4 p-4 text-center'>
