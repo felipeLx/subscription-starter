@@ -4,6 +4,7 @@ import { stripe } from '@/utils/stripe';
 import { createOrRetrieveCustomer } from '@/utils/supabase-admin';
 import { getURL } from '@/utils/helpers';
 import { Database } from '@/types_db';
+import { redirect } from 'next/navigation';
 
 export async function POST(req: Request) {
   if (req.method === 'POST') {
@@ -17,6 +18,10 @@ export async function POST(req: Request) {
         data: { user }
       } = await supabase.auth.getUser();
 
+      if (!user) {
+        // If no user, redirect to sign-in
+        return redirect('/sign-in');
+      }
       // 3. Retrieve or create the customer in Stripe
       const customer = await createOrRetrieveCustomer({
         uuid: user?.id || '',
