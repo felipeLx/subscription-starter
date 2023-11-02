@@ -41,7 +41,7 @@ export default async function Account() {
     //console.log('formData', formData)
     const newName: any = formData.get('name') as string;
     const response = await updateUserData({
-      url: 'https://subscription-starter-beta-lime.vercel.app/api/username',
+      url: 'https://latambanks.com/api/username',
       data: { 
         full_name: newName
       }

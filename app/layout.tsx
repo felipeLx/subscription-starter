@@ -10,7 +10,7 @@ const meta = {
   cardImage: '/og.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
-  url: 'https://subscription-starter.vercel.app',
+  url: 'https://latambanks.com',
   type: 'website'
 };
 
